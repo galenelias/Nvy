@@ -810,6 +810,7 @@ bool UpdateGridSize(Renderer *renderer, mpack_node_t grid_resize) {
 		for (int i = 0; i < grid_cols * grid_rows; ++i) {
 			renderer->grid_chars[i] = L' ';
 		}
+		free(renderer->grid_cell_properties);
 		renderer->grid_cell_properties = static_cast<CellProperty *>(calloc(static_cast<size_t>(grid_cols) * grid_rows, sizeof(CellProperty)));
 		free(renderer->wchar_buffer);
 		renderer->wchar_buffer = static_cast<wchar_t *>(malloc(static_cast<size_t>(grid_cols * 2) * sizeof(wchar_t)));
