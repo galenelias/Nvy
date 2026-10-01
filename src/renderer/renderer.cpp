@@ -205,6 +205,7 @@ void RendererShutdown(Renderer *renderer) {
 	SafeRelease(&renderer->d2d_context);
 	SafeRelease(&renderer->d2d_target_bitmap);
 	SafeRelease(&renderer->d2d_background_rect_brush);
+	SafeRelease(&renderer->font_face);
 	SafeRelease(&renderer->dwrite_factory);
 	SafeRelease(&renderer->dwrite_text_format);
 	delete renderer->glyph_renderer;
@@ -299,6 +300,7 @@ bool UpdateFontMetrics(Renderer *renderer, float font_size, const char* font_str
 
 	IDWriteFontFace *font_face;
 	WIN_CHECK(write_font->CreateFontFace(&font_face));
+	SafeRelease(&renderer->font_face);
 	WIN_CHECK(font_face->QueryInterface<IDWriteFontFace1>(&renderer->font_face));
 
 	renderer->font_face->GetMetrics(&renderer->font_metrics);
@@ -364,6 +366,7 @@ bool UpdateFontMetrics(Renderer *renderer, float font_size, const char* font_str
 
 	SafeRelease(&font_face);
 	SafeRelease(&font_face_bold);
+	SafeRelease(&font_size_scale_bold1);
 	SafeRelease(&write_font);
 	SafeRelease(&write_font_bold);
 
